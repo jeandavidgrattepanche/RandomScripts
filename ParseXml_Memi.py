@@ -22,7 +22,7 @@ def main():
 		Seqdict[seq.description] = str(seq.seq)
 #	print(len(Seqdict))
 	out = open('MeMi_ref_'+str(readco)+'_'+str(evalueco.split('-')[1])+'.fasta','w+')
-	missing = open('missing_MeMi_'+str(readco)+'_'+str(evalueco.split('-')[1])+'.fasta','w+')
+	missing = open('missing_MeMi_'+str(readco)+'_'+str(evalueco.split('-')[1])+'.txt','w+')
 	for blast_record in NCBIXML.parse(open(xmlfile)):
 		if blast_record.descriptions:
 			for i in range(1):
