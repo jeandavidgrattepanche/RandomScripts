@@ -20,7 +20,7 @@ class color:
 if len(sys.argv) != 4:
 	print color.BOLD + '\n\nDouble check that you have added all the necessary command-line inputs! (see usage below for an example)\n\n'
 	print color.BOLD + '\n\nDouble check that this script is in the bbmap folder!\n\n'
-	print  color.RED + 'Example Usage:\n\n\t' + color.CYAN + 'katzlab$ python Autorpkm.py ref Mm drectory\n\n' + color.END	
+	print  color.RED + 'Example Usage:\n\n\t' + color.CYAN + 'katzlab$ python Autorpkm.py ref Mm directory\n\n' + color.END	
 	print color.BOLD + 'The current script controls for names, for example, Mm is the shared starting of each file/folder, and ref is the reference you want to map your reads against\n\n'
 	sys.exit()
 else:
