@@ -21,6 +21,8 @@ def main():
 	for seq in SeqIO.parse(seqfile,'fasta'):
 		Seqdict[seq.description] = str(seq.seq)
 #	print(len(Seqdict))
+	out = open('MeMi_ref_'+str(readco)+'_'+str(evalueco.split('-')[1])+'.fasta','w+')
+	missing = open('missing_MeMi_'+str(readco)+'_'+str(evalueco.split('-')[1])+'.fasta','w+')
 	for blast_record in NCBIXML.parse(open(xmlfile)):
 		if blast_record.descriptions:
 			for i in range(1):
@@ -36,6 +38,10 @@ def main():
 				if cov >= int(readco) and evalue <= float(evalueco):
 					k+=1
 					print(ID)
+					try:
+						out.write('>'+ID + '\n'+ Seqdict[ID] + '\n')
+					except:
+						missing.write(ID+'\n')
 	print("number of transcripts =" ,len(Seqdict), 'in AA file or ', str(b),' in xml')
 	print("Coverage < ", str(readco), " = ", str(a), ' \n evalue > ', str(evalueco), ' = ', str(j),' \n Both cutoffs = ', str(k))
 					
