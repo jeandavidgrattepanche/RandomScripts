@@ -19,16 +19,16 @@ def geneExpChan(tsvfile, cutoff):
 			newheader.append(header[allmi[j]])
 		print newheader
 	dict = {} ; dict2 = {}; trans = []; z = 0
-	out1 = open(tsvfile.split('.')[0]+'_Gexp.tsv','w+')
+	out1 = open(tsvfile.split('.')[0]+'_Gexpb.tsv','w+')
 	out1.write('\t'+ ('\t').join(newheader) +'\n')	
-	out2 = open(tsvfile.split('.')[0]+'.tsv','w+')
+	out2 = open(tsvfile.split('.')[0]+'b.tsv','w+')
 	out2.write('\t'+ ('\t').join(newheader) +'\n')	
 	for row in open(tsvfile,'r'):
 		list= []; list2 = []; z += 1
 		if row[0] != "\t":
 			trans.append(row.split('\t')[0])
 			for j in  range(0,len(allna)):
-				if float(row.split('\t')[contna[0]]) > int(cutoff) and float(row.split('\t')[allna[j]]) > int(cutoff):
+				if float(row.split('\t')[allna[j]]) > int(cutoff)and float(float(row.split('\t')[contna[0]]) + float(row.split('\t')[contmi[0]])) > int(cutoff) :
 					if float(row.split('\t')[allna[j]]) > 0 and float(row.split('\t')[allna[j]]) <= 10:
 						valnax2 =  1
 					elif float(row.split('\t')[allna[j]]) > 10 and float(row.split('\t')[allna[j]]) <= 100:
@@ -45,8 +45,11 @@ def geneExpChan(tsvfile, cutoff):
 					valnax2= 0
 				list2.append(str(valnax2))
 			for j in  range(0,len(allna)):
-				if float(row.split('\t')[contna[0]]) > int(cutoff) and float(row.split('\t')[allna[j]]) > int(cutoff):
-					valnax = round(math.log10(float(row.split('\t')[allna[j]]) / float(row.split('\t')[contna[0]])),1)
+				if float(row.split('\t')[allna[j]]) > int(cutoff) and float(float(row.split('\t')[contna[0]]) + float(row.split('\t')[contmi[0]])) > int(cutoff) :
+					try:
+						valnax = round(math.log10(float(row.split('\t')[allna[j]]) / float(row.split('\t')[contna[0]])),1)
+					except:
+						valnax = round(math.log10(float(row.split('\t')[allna[j]]) / float(1)),1)
 					if valnax > 0:
 						valnax = 2
 					elif valnax < 0:
@@ -54,13 +57,13 @@ def geneExpChan(tsvfile, cutoff):
 					elif valnax == 0:
 						valnax = 1
 				else:
-					if float(row.split('\t')[contna[0]]) <= int(cutoff):
-						valnax = -2
-					else:
-						valnax = -1
+# 					if float(row.split('\t')[contna[0]]) <= int(cutoff):
+# 						valnax = -2
+# 					else:
+					valnax = -1
 				list.append(str(valnax))
 			for j in  range(0,len(allmi)):
-				if float(row.split('\t')[contmi[0]]) > int(cutoff) and float(row.split('\t')[allmi[j]]) > int(cutoff):
+				if float(row.split('\t')[allmi[j]]) > int(cutoff) and float(float(row.split('\t')[contna[0]]) + float(row.split('\t')[contmi[0]])) > int(cutoff) :
 					if float(row.split('\t')[allmi[j]]) > 0 and float(row.split('\t')[allmi[j]]) <= 10:
 						valmix2 =  1
 					elif float(row.split('\t')[allmi[j]]) > 10 and float(row.split('\t')[allmi[j]]) <= 100:
@@ -77,8 +80,11 @@ def geneExpChan(tsvfile, cutoff):
 					valmix2 = 0
 				list2.append(str(valmix2))
 			for j in  range(0,len(allmi)):
-				if float(row.split('\t')[contmi[0]]) > int(cutoff) and float(row.split('\t')[allmi[j]]) > int(cutoff):
-					valmix = round(math.log10(float(row.split('\t')[allmi[j]]) / float(row.split('\t')[contmi[0]])),1)
+				if float(row.split('\t')[allmi[j]]) > int(cutoff) and float(float(row.split('\t')[contna[0]]) + float(row.split('\t')[contmi[0]])) > int(cutoff) :
+					try:
+						valmix = round(math.log10(float(row.split('\t')[allmi[j]]) / float(row.split('\t')[contmi[0]])),1)
+					except:
+						valmix = round(math.log10(float(row.split('\t')[allmi[j]]) / float(1)),1)
 					if valmix > 0:
 						valmix = 2
 					elif valmix < 0:
@@ -86,10 +92,10 @@ def geneExpChan(tsvfile, cutoff):
 					elif valmix == 0:
 						valmix = 1
 				else:
-					if float(row.split('\t')[contmi[0]]) <= int(cutoff):
-						valmix = -2
-					else:
-						valmix = -1
+# 					if float(row.split('\t')[contmi[0]]) <= int(cutoff):
+# 						valmix = -2
+# 					else:
+					valmix = -1
 				list.append(str(valmix))
 			print row.split('\t')[0]
 			dict2[row.split('\t')[0]] = list2
@@ -103,7 +109,7 @@ def geneExpChan(tsvfile, cutoff):
 				sum+= float(element)
 			else:
 				sum+= -1
-		if sum != -44: # and sum != 22 : 
+		if sum != -22: # and sum != 22 : 
 			out1.write(transcript + '\t' + ('\t').join(dict[transcript]) + '\n')
 			out2.write(transcript + '\t' + ('\t').join(dict2[transcript]) + '\n')
 			list3.append(transcript)
