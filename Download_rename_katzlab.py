@@ -57,15 +57,15 @@ def Rename(inputfile):
 				newname = record2.annotations["taxonomy"][0][0:3]+ "\t" +record2.annotations["taxonomy"][1][0:3] + "\t" +record2.annotations["taxonomy"][2][0:3] + "\t" +record2.annotations["taxonomy"][3][0:2] + "\t" +record2.annotations["taxonomy"][4][0:2] + "\t" +record2.annotations["taxonomy"][5][0:2] +  "\t" +  record2.annotations["organism"]  # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
 			except:
 				try: 
-					newname = record2.annotations["taxonomy"][1] + "\t" +record2.annotations["taxonomy"][2] + "\t" +record2.annotations["taxonomy"][3] + "\t\t" +  record2.annotations["organism"] # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
+					newname = record2.annotations["taxonomy"][0][0:3]+ "\t" +record2.annotations["taxonomy"][1][0:3] + "\t" +record2.annotations["taxonomy"][2][0:3] + "\t" +record2.annotations["taxonomy"][3][0:2] + "\t" +record2.annotations["taxonomy"][4][0:2] + "\t\t" +  record2.annotations["organism"]  # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
 				except:
 					try: 
-						newname = record2.annotations["taxonomy"][1]+ "\t" +record2.annotations["taxonomy"][2]+ "\t\t\t" +  record2.annotations["organism"] # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
+						newname = record2.annotations["taxonomy"][0][0:3]+ "\t" +record2.annotations["taxonomy"][1][0:3] + "\t" +record2.annotations["taxonomy"][2][0:3] + "\t" +record2.annotations["taxonomy"][3][0:2] + "\t\t\t" +  record2.annotations["organism"]  # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
 					except:
 						try: 
-							newname = record2.annotations["taxonomy"][1]+ "\t\t\t\t" +  record2.annotations["organism"] # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
+							newname = record2.annotations["taxonomy"][0][0:3]+ "\t" +record2.annotations["taxonomy"][1][0:3] + "\t" +record2.annotations["taxonomy"][2][0:3] + "\t\t\t\t" +  record2.annotations["organism"]  # need to be modified related to the taxonomy list =>record2.annotations["taxonomy"][14][0:3]
 						except:
-							newname = "\t\t\t\t\t" + record2.annotations["organism"].replace(' ',' ')
+							newname = "\t\t\t\t\t\t\t" + record2.annotations["organism"].replace(' ',' ')
 			rename2 = newname.translate(''.join(chars_to_remove)).replace('\t','_').replace(' ','_') 
 			outrename = open("Gb_seq.fas",'a')
 			outrename.write('>' + rename2 + '_'+ ID2 +  '\n'+ str(record2.seq)+'\n')
