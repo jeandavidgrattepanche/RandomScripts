@@ -18,6 +18,6 @@ for file in oslistdir('DataFolder/'):
 	sigModel=${sigfile//_sigHits.txt/_sigModels.txt} \
 	echo $sigfile \
 	echo $sigModel \
-	grep -v “^#” $species.x.phag_nonphag-allVall-any3diverse.hmmsearchOUT-tbl.txt | awk ‘$5<=1e-5 && $8<=1e-4 > $sigfile \
-	awk ‘{print $3}’ $sigfile | sort -u > $sigModel')
+	grep -v “^#” $species.x.phag_nonphag-allVall-any3diverse.hmmsearchOUT-tbl.txt | awk '$5<=1e-5 && $8<=1e-4 > $sigfile \
+	awk '{print $3}' $sigfile | sort -u > $sigModel')
 	os.system('cp $sigModel TestGenomes/$sigModel')
