@@ -1,6 +1,6 @@
 # script derived from TrophicModePredictionTool from J Burns et al 2018 NEE
 
-import re; sys; os
+import re, sys, os
 
 for file in oslistdir('DataFolder/'):
 	species=file.split('_')[0]+'_'+file.split('_')[1]
