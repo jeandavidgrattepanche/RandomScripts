@@ -9,11 +9,13 @@ source('/home/tuk61790/HPCr/multiplot.R', chdir = TRUE)
 
 data.all <- read.table('OTUtable_ingroup_noTtree.txt')
 mytable = otu_table(cbind(data.all[c(0)],data.all[c(16:111)]), taxa_are_rows=TRUE,errorIfNULL=TRUE)
+mytable_pa = otu_table(cbind(data.all[c(0)],((data.all[c(16:111)]>0)*1L)), taxa_are_rows=TRUE,errorIfNULL=TRUE)
 env.all <- read.table('NBP1910_envdata_v3b_size_noNaN.txt')
 envdata = sample_data(env.all)
 testb <- as.matrix(data.all[c(0:15)])
 TAX <- tax_table(testb)
 physeq <- phyloseq(mytable, envdata, TAX)
+physeq_pa <- phyloseq(mytable_pa, envdata, TAX)
 #pico <- subset_samples(physeq, size == "pico")
 #nano <- subset_samples(physeq, size == "nano")
 #micro <- subset_samples(physeq, size == "micro")
@@ -43,10 +45,29 @@ for(ind in indices){
 #		plot(get(paste("p",i,sep="")))
 	}
 }
-pdf('PCoAs.pdf')
+pdf('PCoAs_2.pdf')
 multiplot(p1,p2,p3,p4,p5,p6,p7,p8,p9,cols=3)
 dev.off()
 
+indices <- c("bray","jaccard","raup") #"raup","chisq"
+list <- list()
+i = 0
+for(ind in indices){
+	for(sizedata in sizes){
+		i = i + 1
+		named <- paste(ind,sizedata,sep = "-")
+		print(named)
+		PCoAm <- ordinate(subset_samples(physeq_pa, size == sizedata), "PCoA", distance = ind)
+		ordplotPm <- plot_ordination(subset_samples(physeq_pas, size == sizedata), PCoAm, color="Group", shape="layer",label="sample",title=named)
+		ordplotPmplus <- ordplotPm + geom_point(size=3)
+		assign(paste("p",i,sep=""), ordplotPmplus)
+		list[[length(list)+1]] <- paste("p",i,sep="")
+#		plot(get(paste("p",i,sep="")))
+	}
+}
+pdf('PCoAs_3.pdf')
+multiplot(p1,p2,p3,p4,p5,p6,p7,p8,p9,cols=3)
+dev.off()
 list <- list()
 j = 0
 for(sizedata in sizes){
