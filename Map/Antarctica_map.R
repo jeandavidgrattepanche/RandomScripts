@@ -21,7 +21,7 @@ ggplot(data = world) +
 	annotation_north_arrow(location = "br", which_north = "true", pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"), style = north_arrow_fancy_orienteering) +
 	coord_sf(xlim = c(-70.5, -58.2), ylim = c(-68.9, -63.5), expand = FALSE)
 	
-# version 2 of the map... more fine scale of the coastline
+# version 2 of the map... coastline at finer scale
 library(mapdata)
 
 world2 <- map("worldHires", fill = T, plot = F)
