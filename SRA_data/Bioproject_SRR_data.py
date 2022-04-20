@@ -2,7 +2,7 @@ import re, sys, os, time
 from sys import argv
 from Bio import SeqIO
 from Bio import Entrez
-Entrez.email = 'jd.grattepanche@temple.edu'
+Entrez.email = 'xxxx@temple.edu'
 
 def main():
 	script, bioproject_list, BioP = argv
