@@ -2,20 +2,20 @@ import re, sys, os, time
 from sys import argv
 from Bio import SeqIO
 from Bio import Entrez
-Entrez.email = 'jd.grattepanche@temple.edu'
+Entrez.email = 'xxx@temple.edu'
 
 def main():
 	script, bioproject_list = argv
 	lr=0; check= 0
-# 	for data in open(bioproject_list):
-# 		dataname = data.split('\n')[0]
-# 		print("Downloading and preparing ",dataname)
-# 		handle = Entrez.esearch(db="sra", term=dataname, RetMax=1000)
-# 		records = Entrez.read(handle)
-# 		print(dataname, '\t',records["Count"])
+	for data in open(bioproject_list):
+		dataname = data.split('\n')[0]
+		print("Downloading and preparing ",dataname)
+		handle = Entrez.esearch(db="sra", term=dataname, RetMax=1000)
+		records = Entrez.read(handle)
+		print(dataname, '\t',records["Count"])
 # 		os.system("esearch -db sra -query "+dataname+' | efetch -format runinfo | cut -d "," -f 1 >> SRR_numbers.txt')
-# # 		os.system("esearch -db sra -query "+dataname+" | efetch -format runinfo > "+dataname+'2.tsv | cut -d "," -f 1 > SRR_numbers.txt')
-# 		time.sleep(2)
+		os.system("esearch -db sra -query "+dataname+" | efetch -format runinfo > "+dataname+'2.tsv | cut -d "," -f 1 > SRR_numbers.txt')
+		time.sleep(2)
 
 	for SRRnumber in open("SRR_numbers.txt"):	
 		lr=0; check= 0
